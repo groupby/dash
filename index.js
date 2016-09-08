@@ -26,7 +26,7 @@ router.post('/refresh', (ctx) => {
 
 app.use(router.routes());
 io.attach(app);
-app.listen(3000);
+app.listen(process.env.PORT || 8080);
 
 let config;
 try {

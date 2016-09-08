@@ -6,10 +6,11 @@
   </ul>
 
   <script>
-    this.socket = io('http://localhost:3000');
-    axios.get('http://localhost:3000/api/jobs')
+    const url = window.location.origin;
+    this.socket = io(url);
+    axios.get(`${url}/api/jobs`)
       .then(({ data }) => this.update({ builds: data }));
-    this.on('mount', () => axios.post('http://localhost:3000/api/refresh'));
+    this.on('mount', () => axios.post(`${url}/api/refresh`));
   </script>
 
   <style scoped>
