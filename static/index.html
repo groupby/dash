@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <meta charset="utf-8">
     <title>GroupBy Dash</title>
-    <script type="riot/tag" src="tags/builds.tag"></script>
-    <script type="riot/tag" src="tags/build.tag"></script>
+    <link rel="stylesheet" href="main.css" media="screen" title="no title">
+    <script type="riot/tag" src="tags/builds.tag.html"></script>
+    <script type="riot/tag" src="tags/build.tag.html"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/riot/2.6/riot+compiler.min.js"></script>
     <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
   </head>
+
   <body>
 
     <gb-builds></gb-builds>
 
     <script>
-      riot.compile(function () {
+      riot.compile(function() {
         riot.mount('*');
       });
     </script>
 
   </body>
+
 </html>

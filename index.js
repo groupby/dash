@@ -41,18 +41,22 @@ if ('builds' in config) {
   for (let build of config.builds) {
     let opts;
     let buildName;
-    let status;
+    let transform;
     switch (build.type) {
       case 'circleci':
         buildName = build.name;
+        let url = `https://circleci.com/api/v1.1/project/github/${buildName}`;
+        if (build.branch) url += `/tree/${build.branch}`;
         opts = {
-          url: `https://circleci.com/api/v1.1/project/github/${buildName}${build.branch ? `/tree/${build.branch}` : ''}`,
-          qs: {
-            'circle-token': circleToken
-          },
+          url,
+          qs: { 'circle-token': circleToken },
           json: true
         };
-        status = (res) => res[0].status;
+        transform = (res) => ({
+          label: res[0].build_num,
+          reason: `${res[0].why}: ${res[0].subject ? res[0].subject : 'release ' + res[0].vcs_tag}`,
+          status: res[0].status
+        });
         break;
       case 'gocd':
         buildName = build.pipeline;
@@ -64,20 +68,35 @@ if ('builds' in config) {
           },
           json: true
         };
-        status = (res) => res.pipelines[0].stages.reduce((status, stage) => {
-          switch (stage.result) {
-            case 'Passed': return 'success';
-            case 'Failed': return 'failed';
-            case 'Unknown': return 'running';
-            default: return status;
-          }
-        }, '');
+        transform = (res) => ({
+          label: res.pipelines[0].label,
+          reason: (() => {
+            const buildCause = res.pipelines[0].build_cause;
+            if (buildCause.trigger_forced) {
+              return 'retry';
+            } else {
+              return buildCause.material_revisions[0].modifications[0].comment;
+            }
+          })(),
+          status: res.pipelines[0].stages.reduce((status, stage) => {
+            switch (stage.result) {
+              case 'Passed':
+                return 'success';
+              case 'Failed':
+                return 'failed';
+              case 'Unknown':
+                return 'running';
+              default:
+                return status;
+            }
+          }, '')
+        });
         break;
     }
-    if (status) {
+    if (transform) {
       const job = () => rp(opts)
         .then((res) => {
-          io.broadcast(buildName, { status: status(res) });
+          io.broadcast(buildName, transform(res));
         })
         .catch((err) => console.error(err));
       job();

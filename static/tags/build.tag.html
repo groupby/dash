@@ -1,0 +1,56 @@
+<gb-build>
+  <li class="gb-build-indicator { status }">
+    <h2>{ build }</h2>
+
+    <p>Build #{ label }</p>
+    <p>{ reason }</p>
+
+    <span class="gb-timestamp">updated at { updated }</span>
+  </li>
+
+  <script>
+    const socket = opts.socket;
+    socket.on(this.build, (data) => {
+      data.updated = new Date().toLocaleTimeString();
+      this.update(data);
+    });
+  </script>
+
+  <style scoped>
+    :scope {
+      font-family: FiraSans;
+    }
+    :scope h2 {
+      margin: 0;
+      text-transform: uppercase;
+    }
+    :scope .gb-timestamp {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      padding: 6px;
+    }
+    :scope .gb-build-indicator {
+      position: relative;
+      display: block;
+      width: 400px;
+      height: 250px;
+      margin: 12px;
+      background-color: lightgrey;
+      border: 5px solid grey;
+      padding: 20px;
+    }
+    :scope .gb-build-indicator.running {
+      background-color: lightblue;
+      border-color: blue;
+    }
+    :scope .gb-build-indicator.failed {
+      border-color: red;
+      background-color: tomato;
+    }
+    :scope .gb-build-indicator.success {
+      border-color: green;
+      background-color: lightgreen;
+    }
+  </style>
+</gb-build>
