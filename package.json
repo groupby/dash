@@ -1,0 +1,22 @@
+{
+  "name": "dash",
+  "version": "0.0.1",
+  "description": "GroupBy dashboard tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cron": "^1.1.0",
+    "js-yaml": "^3.6.1",
+    "koa": "^2.0.0",
+    "koa-router": "^7.0.1",
+    "koa-router-static": "^1.2.0",
+    "koa-socket": "^4.4.0",
+    "koa-static": "^2.0.0",
+    "request": "^2.74.0",
+    "request-promise": "^4.1.1"
+  }
+}
