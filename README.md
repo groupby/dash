@@ -8,7 +8,7 @@ Currently supported:
 - circleci (github builds only)
 - gocd
 
-![screenshot](https://cloud.githubusercontent.com/assets/3784470/18475949/5082b700-7996-11e6-8f86-b35b332e1c99.png)
+![screenshot](https://cloud.githubusercontent.com/assets/3784470/18476055/9d093ad6-7996-11e6-8417-dde80ae1ef45.png)
 
 ## Configuration
 
