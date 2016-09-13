@@ -9,6 +9,7 @@ module.exports = function(build, config) {
   if (build.branch) url += `/tree/${build.branch}`;
 
   return {
+    type: 'circleci',
     name,
     opts: {
       url,

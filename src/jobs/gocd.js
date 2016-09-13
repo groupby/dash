@@ -6,6 +6,7 @@ module.exports = function(build, config) {
   const url = `${pipelineUrl(goConfig, name, true)}/history`;
 
   return {
+    type: 'gocd',
     name,
     opts: {
       url,

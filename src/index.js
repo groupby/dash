@@ -41,15 +41,12 @@ function configureJob(build, config) {
 }
 
 function createJob({ io, jobs }, jobConfig) {
-  const { name, opts, transform } = jobConfig;
+  const { type, name, opts, transform } = jobConfig;
   const job = () => rp(Object.assign(opts, { json: true }))
     .then((res) => {
       io.broadcast(name, transform(res));
     })
     .catch((err) => console.error(err));
-  jobs.push({
-    name,
-    job
-  });
+  jobs.push({ type, name, job });
   new CronJob('*/1 * * * *', job, null, true);
 }

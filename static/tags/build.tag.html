@@ -1,19 +1,20 @@
 <gb-build>
   <a href={ url }>
     <li class="gb-build-indicator { status }">
-      <h2>{ build }</h2>
+      <h2>{ build.name }</h2>
 
       <p>Build #{ label }</p>
       <p>{ reason }</p>
 
-      <img src="images/{ confidenceIcon() }.svg" alt="" />
+      <img class="gb-build-system-icon" src="images/{ build.type }.png" alt="" />
+      <img class="gb-build-confidence" src="images/{ confidenceIcon() }.svg" alt="" />
       <span class="gb-timestamp">updated at { updated }</span>
     </li>
   </a>
 
   <script>
     const socket = opts.socket;
-    socket.on(this.build, (data) => {
+    socket.on(this.build.name, (data) => {
       data.updated = new Date().toLocaleTimeString();
       this.update(data);
     });
@@ -34,11 +35,18 @@
     :scope {
       font-family: FiraSans;
     }
-    :scope img {
+    :scope .gb-build-confidence {
       position: absolute;
       width: 50px;
       left: 0;
       bottom: 0;
+      padding: 6px;
+    }
+    :scope .gb-build-system-icon {
+      position: absolute;
+      width: 20px;
+      right: 0;
+      top: 0;
       padding: 6px;
     }
     :scope a {

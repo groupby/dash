@@ -11,7 +11,7 @@ const router = new Router({ prefix: '/api' });
 
 app.use(serve(`./static/`));
 
-router.get('/jobs', (ctx) => ctx.body = jobs.map((job) => job.name));
+router.get('/jobs', (ctx) => ctx.body = jobs.map((job) => Object.assign({}, job, { job: undefined })));
 router.post('/refresh', (ctx) => {
   ctx.status = 200;
   jobs.forEach((job) => job.job());
