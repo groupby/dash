@@ -27,3 +27,7 @@ gocd:
   user: user
   password: password1
 ```
+
+### Attributions
+
+Icons made by [Zlatko Najdenovski](http://www.flaticon.com/authors/zlatko-najdenovski) from www.flaticon.com
