@@ -1,12 +1,15 @@
 <gb-build>
-  <li class="gb-build-indicator { status }">
-    <h2>{ build }</h2>
+  <a href={ url }>
+    <li class="gb-build-indicator { status }">
+      <h2>{ build }</h2>
 
-    <p>Build #{ label }</p>
-    <p>{ reason }</p>
+      <p>Build #{ label }</p>
+      <p>{ reason }</p>
 
-    <span class="gb-timestamp">updated at { updated }</span>
-  </li>
+      <img src="images/{ confidenceIcon() }.svg" alt="" />
+      <span class="gb-timestamp">updated at { updated }</span>
+    </li>
+  </a>
 
   <script>
     const socket = opts.socket;
@@ -14,11 +17,33 @@
       data.updated = new Date().toLocaleTimeString();
       this.update(data);
     });
+    this.confidenceIcon = () => {
+      if (this.confidence === 1) {
+        return 'sun';
+      } else if (this.confidence > 0.75) {
+        return 'cloudy';
+      } else if (this.confidence > 0.5) {
+        return 'cloud';
+      } else {
+        return 'storm';
+      }
+    };
   </script>
 
   <style scoped>
     :scope {
       font-family: FiraSans;
+    }
+    :scope img {
+      position: absolute;
+      width: 50px;
+      left: 0;
+      bottom: 0;
+      padding: 6px;
+    }
+    :scope a {
+      text-decoration: none;
+      color: black;
     }
     :scope h2 {
       margin: 0;
