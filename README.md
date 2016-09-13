@@ -28,6 +28,22 @@ gocd:
   password: password1
 ```
 
+## Local
+
+To test locally run the following and navigate to http://localhost:8080
+
+`npm start`
+
+## Docker
+
+To build the container:
+
+`docker build -t groupby/dash .`
+
+To deploy:
+
+`docker run -d -p 3000:8080 --name my-dashboard groupby/dash`
+
 ### Attributions
 
 Icons made by [Zlatko Najdenovski](http://www.flaticon.com/authors/zlatko-najdenovski) from www.flaticon.com
