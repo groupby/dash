@@ -15,7 +15,6 @@ module.exports = function(build, config) {
       qs: { 'circle-token': circleToken }
     },
     transform: (res) => {
-      console.log('circleci', res.length);
       return {
         label: res[0].build_num,
         reason: `${res[0].why}: ${res[0].subject ? res[0].subject : 'release ' + res[0].vcs_tag}`,

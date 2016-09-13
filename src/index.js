@@ -44,7 +44,6 @@ function createJob({ io, jobs }, jobConfig) {
   const { name, opts, transform } = jobConfig;
   const job = () => rp(Object.assign(opts, { json: true }))
     .then((res) => {
-      // console.log(res);
       io.broadcast(name, transform(res));
     })
     .catch((err) => console.error(err));

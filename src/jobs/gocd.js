@@ -15,7 +15,6 @@ module.exports = function(build, config) {
       }
     },
     transform: (res) => {
-      console.log('gocd', res.pipelines.length);
       const pipeline = res.pipelines[0];
       const stage = pipeline.stages[0];
       const label = pipeline.counter;
