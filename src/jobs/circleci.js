@@ -19,13 +19,17 @@ module.exports = function(build, config) {
       return {
         label: res[0].build_num,
         reason: `${res[0].why}: ${res[0].subject ? res[0].subject : 'release ' + res[0].vcs_tag}`,
-        status: res[0].status,
+        status: extractStatus(res[0]),
         url: res[0].build_url,
         confidence: calculateConfidence(res)
       };
     }
   };
 };
+
+function extractStatus(build) {
+  return build.status === 'fixed' ? 'success' : build.status;
+}
 
 function calculateConfidence(res) {
   const sample = res.slice(0, 5);
