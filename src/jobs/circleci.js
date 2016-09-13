@@ -28,6 +28,7 @@ module.exports = function(build, config) {
 };
 
 function calculateConfidence(res) {
-  const passing = res.filter((build) => build.status === 'success');
-  return passing.length / res.length;
+  const sample = res.slice(0, 5);
+  const passing = sample.filter((build) => build.status === 'success');
+  return passing.length / sample.length;
 }

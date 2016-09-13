@@ -31,8 +31,9 @@ module.exports = function(build, config) {
 };
 
 function calculateConfidence(pipelines) {
-  const passing = pipelines.filter((pipeline) => pipeline.stages.reduce(reduceStatus, '') === 'success');
-  return passing.length / pipelines.length;
+  const sample = pipelines.slice(0, 5);
+  const passing = sample.filter((pipeline) => pipeline.stages.reduce(reduceStatus, '') === 'success');
+  return passing.length / sample.length;
 }
 
 function pipelineUrl(goConfig, name, api = false) {

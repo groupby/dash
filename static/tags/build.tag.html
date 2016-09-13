@@ -19,12 +19,14 @@
       this.update(data);
     });
     this.confidenceIcon = () => {
-      if (this.confidence === 1) {
+      if (this.confidence > 0.8) {
         return 'sun';
-      } else if (this.confidence > 0.75) {
+      } else if (this.confidence > 0.6) {
         return 'cloudy';
-      } else if (this.confidence > 0.5) {
+      } else if (this.confidence > 0.4) {
         return 'cloud';
+      } else if (this.confidence > 0.2) {
+        return 'rain';
       } else {
         return 'storm';
       }
