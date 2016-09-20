@@ -1,4 +1,5 @@
 const BASE_URL = 'https://circleci.com/api/v1.1/project/github';
+const HISTORY_SIZE = 5;
 
 module.exports = function(build, config) {
   const name = build.name;
@@ -16,9 +17,11 @@ module.exports = function(build, config) {
       qs: { 'circle-token': circleToken }
     },
     transform: (res) => {
+      const subject = res[0].subject ? res[0].subject : `release ${res[0].vcs_tag}`;
+
       return {
         label: res[0].build_num,
-        reason: `${res[0].why}: ${res[0].subject ? res[0].subject : 'release ' + res[0].vcs_tag}`,
+        reason: `${res[0].why}: ${subject}`,
         status: extractStatus(res[0]),
         url: res[0].build_url,
         confidence: calculateConfidence(res)
@@ -32,7 +35,7 @@ function extractStatus(build) {
 }
 
 function calculateConfidence(res) {
-  const sample = res.slice(0, 5);
+  const sample = res.slice(0, HISTORY_SIZE);
   const passing = sample.filter((build) => build.status === 'success');
   return passing.length / sample.length;
 }

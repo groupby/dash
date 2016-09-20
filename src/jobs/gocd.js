@@ -1,3 +1,5 @@
+const HISTORY_SIZE = 5;
+
 module.exports = function(build, config) {
   const name = build.pipeline;
 
@@ -31,7 +33,7 @@ module.exports = function(build, config) {
 };
 
 function calculateConfidence(pipelines) {
-  const sample = pipelines.slice(0, 5);
+  const sample = pipelines.slice(0, HISTORY_SIZE);
   const passing = sample.filter((pipeline) => pipeline.stages.reduce(reduceStatus, '') === 'success');
   return passing.length / sample.length;
 }
