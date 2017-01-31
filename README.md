@@ -1,4 +1,6 @@
 # dash
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/groupby/dash.svg)](https://greenkeeper.io/)
 A dashboard for visualizing builds across multiple services.
 
 Expects a file `config.yml` at the root directory in order to request
