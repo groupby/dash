@@ -13,7 +13,7 @@
     "cron": "^1.1.0",
     "js-yaml": "^3.6.1",
     "koa": "^2.0.0",
-    "koa-router": "^7.0.1",
+    "koa-router": "^7.2.0",
     "koa-router-static": "^1.2.0",
     "koa-socket": "^4.4.0",
     "koa-static": "^2.0.0",
